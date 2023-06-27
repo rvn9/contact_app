@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.test_app.presentation.AddContactScreen
 import com.example.test_app.presentation.ContactDetail
 import com.example.test_app.presentation.ContactViewModel
 
@@ -24,8 +25,11 @@ fun NavGraph (navController: NavHostController, viewModel: ContactViewModel){
         composable(route = Screens.Detail.route + "/{contactId}",   arguments = listOf(navArgument("contactId") { type = NavType.StringType }))
         {
             val contactId = it.arguments?.getString("contactId")
-            if(contactId != null)
-            ContactDetail(navController, viewModel,contactId)
+            if(contactId != null) ContactDetail(navController, viewModel,contactId)
+        }
+        composable(route = Screens.AddContact.route)
+        {
+            AddContactScreen(navController, viewModel)
         }
     }
 }

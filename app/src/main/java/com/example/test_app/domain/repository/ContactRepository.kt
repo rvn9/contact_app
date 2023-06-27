@@ -5,7 +5,9 @@ import com.example.test_app.domain.contact.Contact
 import com.example.test_app.domain.util.Resource
 
 interface ContactRepository {
-    suspend fun getContact(context: Context): Resource<List<Contact>>
+    suspend fun getContact(context: Context): Resource<List<Contact>?>
     suspend fun getContactDetail(id: String): Resource<Contact>
-    suspend fun updateContact(id:String, newData: Contact): Resource<Map<String,Any>>
+    suspend fun updateContact(id:String, newData: Contact): Resource<List<Contact>?>
+    suspend fun addContact(newData:Contact): Resource<List<Contact>?>
+
 }

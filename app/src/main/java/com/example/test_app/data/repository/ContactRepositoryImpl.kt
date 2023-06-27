@@ -12,8 +12,8 @@ import javax.inject.Inject
 
 
 class ContactRepositoryImpl @Inject constructor(): ContactRepository {
-    val savedContacts = ArrayList<Contact?>()
-    override suspend fun getContact(context: Context): Resource<List<Contact>> {
+    val savedContacts = ArrayList<Contact>()
+    override suspend fun getContact(context: Context): Resource<List<Contact>?> {
         return try {
             val contacts = getContactsAssets(context)
             if(contacts != null) {
@@ -41,10 +41,10 @@ class ContactRepositoryImpl @Inject constructor(): ContactRepository {
         }
     }
 
-    override suspend fun updateContact(id: String, newData: Contact): Resource<Map<String,Any>> {
+    override suspend fun updateContact(id: String, newData: Contact): Resource<List<Contact>?> {
         return try {
             var index = savedContacts.indexOfFirst { it?.id == id }
-            val newContact = savedContacts[index]?.copy(
+            val newContact = savedContacts[index].copy(
                 id,
                 newData.firstName,
                 newData.lastName,
@@ -52,9 +52,22 @@ class ContactRepositoryImpl @Inject constructor(): ContactRepository {
                 newData.dob
             )
             savedContacts[index] = newContact
-            val mapWithValues = mapOf("isSuccess" to true, "contacts" to savedContacts)
+
             Resource.Success(
-                data = mapWithValues
+                data = savedContacts
+            )
+
+        } catch(e: Exception) {
+            e.printStackTrace()
+            Resource.Error(e.message ?: "An unknown error occurred.")
+        }
+    }
+
+    override suspend fun addContact(newData: Contact): Resource<List<Contact>?> {
+        return try {
+            savedContacts.add(0,newData)
+            Resource.Success(
+                data = savedContacts
             )
 
         } catch(e: Exception) {

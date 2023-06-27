@@ -83,13 +83,36 @@ class ContactViewModel @Inject constructor(
             )
             when(val result = repository.updateContact(id,newData)) {
                 is Resource.Success -> {
-                    val contacts = result.data?.get("contacts") as List<Contact>
-                    val isUpdatingNewData = result.data?.get("isSuccess") as Boolean
                     state = state.copy(
-                        isUpdatingNewData = isUpdatingNewData ,
                         isLoading = false,
                         error = null,
-                        contacts = contacts
+                        contacts = result.data
+                    )
+                }
+
+                is Resource.Error -> {
+                    state = state.copy(
+                        isUpdatingNewData = false,
+                        isLoading = false,
+                        error = result.message
+                    )
+                }
+            }
+        }
+    }
+
+    fun addContact(newData :Contact){
+        viewModelScope.launch {
+            state = state.copy(
+                isLoading = true,
+                error = null,
+            )
+            when(val result = repository.addContact(newData)) {
+                is Resource.Success -> {
+                    state = state.copy(
+                        isLoading = false,
+                        error = null,
+                        contacts = result.data
                     )
                 }
 
