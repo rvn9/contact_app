@@ -45,11 +45,7 @@ fun ContactDetail(
     viewModel: ContactViewModel,
     id: String
 ){
-
     val state = viewModel.state
-
-    viewModel.getContactDetail(id)
-
     state.contact?.let { data ->
         var firstName by remember { mutableStateOf(TextFieldValue(data.firstName)) }
         var lastName by remember { mutableStateOf(TextFieldValue(data.lastName)) }
@@ -77,7 +73,9 @@ fun ContactDetail(
                         }
                     },
                     navigationIcon = {
-                        TextButton(onClick = { navController.popBackStack() }) {
+                        TextButton(onClick = {
+                            navController.popBackStack()
+                        }) {
                             Text("Cancel")
                         }
                     },

@@ -34,7 +34,6 @@ class ContactRepositoryImpl @Inject constructor(): ContactRepository {
             Resource.Success(
                 data = savedContacts.single { it?.id == id }
             )
-
         } catch(e: Exception) {
             e.printStackTrace()
             Resource.Error(e.message ?: "An unknown error occurred.")

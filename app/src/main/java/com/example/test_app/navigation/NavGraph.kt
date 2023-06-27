@@ -25,10 +25,14 @@ fun NavGraph (navController: NavHostController, viewModel: ContactViewModel){
         composable(route = Screens.Detail.route + "/{contactId}",   arguments = listOf(navArgument("contactId") { type = NavType.StringType }))
         {
             val contactId = it.arguments?.getString("contactId")
-            if(contactId != null) ContactDetail(navController, viewModel,contactId)
+            if(contactId != null) {
+                viewModel.getContactDetail(contactId)
+                ContactDetail(navController, viewModel, contactId)
+            }
         }
         composable(route = Screens.AddContact.route)
         {
+
             AddContactScreen(navController, viewModel)
         }
     }

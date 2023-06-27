@@ -61,7 +61,6 @@ class ContactViewModel @Inject constructor(
                         isLoading = false,
                         error = null,
                     )
-
                 }
 
                 is Resource.Error -> {

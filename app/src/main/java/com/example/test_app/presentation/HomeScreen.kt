@@ -83,39 +83,37 @@ fun HomeScreen(
                     columns = GridCells.Fixed(2)
                 ) {
                     items(data) { contact ->
-                        if(data.isNotEmpty()){
-                            Card (
-                                shape = RoundedCornerShape(10.dp),
-                                modifier = Modifier
-                                    .padding(16.dp)
-                                    .clickable {
-                                        navController.navigate(Screens.Detail.route + "/${contact.id}")
-                                    }
-                            ){
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(16.dp),
-                                    horizontalAlignment = Alignment.CenterHorizontally
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Filled.Person,
-                                        contentDescription = "contactAvatar",
-                                        modifier = Modifier
-                                            .size(96.dp)
-                                            .background(Color.White, CircleShape)
-                                            .padding(6.dp),
-
-                                        )
-                                    Spacer(modifier = Modifier.height(16.dp))
-                                    Text(
-                                        text = "${contact.firstName} ${contact.lastName}",
-                                        fontSize = 12.sp,
-                                        color = Color.Black
-                                    )
+                        Card (
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .clickable {
+                                    navController.navigate(Screens.Detail.route + "/${contact.id}")
                                 }
+                        ){
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.Person,
+                                    contentDescription = "contactAvatar",
+                                    modifier = Modifier
+                                        .size(96.dp)
+                                        .background(Color.White, CircleShape)
+                                        .padding(6.dp),
+
+                                    )
+                                Spacer(modifier = Modifier.height(16.dp))
+                                Text(
+                                    text = "${contact.firstName} ${contact.lastName}",
+                                    fontSize = 12.sp,
+                                    color = Color.Black
+                                )
                             }
-                        } // Todo : add view if no contact
+                        }
                     }
                 }
             }
